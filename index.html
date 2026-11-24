@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Piano Virtuel</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -11,21 +11,21 @@
 
     <div class="piano">
 
-        <div class="white-key">Do</div>
-        <div class="white-key">Ré</div>
-        <div class="white-key">Mi</div>
-        <div class="white-key">Fa</div>
-        <div class="white-key">Sol</div>
-        <div class="white-key">La</div>
-        <div class="white-key">Si</div>
+        <div class="white-key btn" data-frequency="261.63">Do</div>
+        <div class="white-key btn" data-frequency="293.66">Ré</div>
+        <div class="white-key btn" data-frequency="329.63">Mi</div>
+        <div class="white-key btn" data-frequency="349.23">Fa</div>
+        <div class="white-key btn" data-frequency="392.00">Sol</div>
+        <div class="white-key btn" data-frequency="440.00">La</div>
+        <div class="white-key btn" data-frequency="493.88">Si</div>
 
-        <div class="black-key do-diese"></div>
-        <div class="black-key re-diese"></div>
-        <div class="black-key fa-diese"></div>
-        <div class="black-key sol-diese"></div>
-        <div class="black-key la-diese"></div>
+        <div class="black-key do-diese btn" data-frequency="277.18"></div>
+        <div class="black-key re-diese btn" data-frequency="311.13"></div>
+        <div class="black-key fa-diese btn" data-frequency="349.99"></div>
+        <div class="black-key sol-diese btn" data-frequency="415.30"></div>
+        <div class="black-key la-diese btn" data-frequency="466.16"></div>
 
     </div>
-
+<script src="main.js"></script>
 </body>
 </html>

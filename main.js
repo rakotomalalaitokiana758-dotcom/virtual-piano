@@ -1,6 +1,6 @@
 let btn = document.getElementById("btn");
 
-document.querySelectorAll("#btn").forEach((key)=>{
+document.querySelectorAll(".btn").forEach((key)=>{
   key.addEventListener("click", () => {
   const audiContext = new AudioContext();
   const oscillator = audiContext.createOscillator();
