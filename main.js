@@ -1,22 +1,58 @@
-let btn = document.getElementById("btn");
+const keyMap = new Map();
 
-document.querySelectorAll(".btn").forEach((key)=>{
+document.querySelectorAll(".btn").forEach((key) => {
   key.addEventListener("click", () => {
-  const audiContext = new AudioContext();
-  const oscillator = audiContext.createOscillator();
-  const gain = audiContext.createGain();
-  const volume = 5;
-  oscillator.frequency.value = key.dataset.frequency;
+    playNote(key);
+  });
+
+  if (key.dataset.key) {
+    keyMap.set(key.dataset.key.toLowerCase(), key);
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.repeat) return;
+
+  const targetButton = keyMap.get(event.key.toLowerCase());
+  if (targetButton) {
+    playNote(targetButton);
+    targetButton.classList.add("active");
+  }
+});
+
+document.addEventListener("keyup", (event) => {
+  const targetButton = keyMap.get(event.key.toLowerCase());
+  if (targetButton) {
+    targetButton.classList.remove("active");
+  }
+});
+
+function playNote(key) {
+  const frequency = parseFloat(key.dataset.frequency);
+  if (Number.isNaN(frequency)) return;
+
+  const audioContext = new AudioContext();
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+  const volume = 0.4;
+  const duration = 1;
+
+  oscillator.frequency.value = frequency;
   oscillator.type = "sine";
 
-  gain.gain.setValueAtTime(volume, audiContext.currentTime);
+  gain.gain.setValueAtTime(volume, audioContext.currentTime);
+  gain.gain.exponentialRampToValueAtTime(
+    0.0041,
+    audioContext.currentTime + duration,
+  );
 
   oscillator.connect(gain);
+  gain.connect(audioContext.destination);
 
-  gain.connect(audiContext.destination);
-
-  gain.gain.exponentialRampToValueAtTime(0.0041, audiContext.currentTime + 1);
   oscillator.start();
-  oscillator.stop(audiContext.currentTime + 1);
-  //   oscillator.stop(audiContext.currentTime + 1);
-})});
+  oscillator.stop(audioContext.currentTime + duration);
+
+  oscillator.onended = () => {
+    audioContext.close();
+  };
+}
