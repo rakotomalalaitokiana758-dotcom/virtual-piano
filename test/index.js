@@ -1,11 +1,12 @@
-let btn = document.getElementById("windows");
+let btn = document.getElementById("btn");
 
-btn.addEventListener("keydown", () => {
+document.querySelectorAll("#btn").forEach((key)=>{
+  key.addEventListener("click", () => {
   const audiContext = new AudioContext();
   const oscillator = audiContext.createOscillator();
   const gain = audiContext.createGain();
   const volume = 5;
-  oscillator.frequency.value = "393.88";
+  oscillator.frequency.value = key.dataset.frequency;
   oscillator.type = "sine";
 
   gain.gain.setValueAtTime(volume, audiContext.currentTime);
@@ -14,11 +15,8 @@ btn.addEventListener("keydown", () => {
 
   gain.connect(audiContext.destination);
 
-  gain.gain.exponentialRampToValueAtTime(0.1, audiContext.currentTime + 1);
+  gain.gain.exponentialRampToValueAtTime(0.0041, audiContext.currentTime + 1);
   oscillator.start();
-
+  oscillator.stop(audiContext.currentTime + 1);
   //   oscillator.stop(audiContext.currentTime + 1);
-  btn.addEventListener("keyup", () => {
-    oscillator.stop(audiContext.currentTime + 0.5);
-  });
-});
+})});
